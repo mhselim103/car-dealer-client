@@ -1,7 +1,8 @@
 import React from "react";
-import Header from "../Shared/Navigation/Header";
+import Header from "../Shared/Header/Header";
 import Banner from "./Banner/Banner";
 import Cars from "./Cars/Cars";
+import Footer from "../Shared/Footer/Footer";
 
 const Home = () => {
   return (
@@ -9,6 +10,7 @@ const Home = () => {
       <Header></Header>
       <Banner></Banner>
       <Cars></Cars>
+      <Footer></Footer>
     </div>
   );
 };
