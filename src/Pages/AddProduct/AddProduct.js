@@ -1,9 +1,9 @@
 import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
-import "./AddNewDestination.css";
+import "./AddProduct.css";
 
-const AddNewDestination = () => {
+const AddProduct = () => {
   const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = (data) => {
@@ -42,4 +42,4 @@ const AddNewDestination = () => {
   );
 };
 
-export default AddNewDestination;
+export default AddProduct;

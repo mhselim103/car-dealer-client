@@ -6,14 +6,14 @@ import { useNavigate } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 const Header = () => {
   const { user, logOut } = useAuth();
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState("home");
   const navigate = useNavigate();
 
   const handleSelected = (selection) => {
     setSelected(selection);
   };
   const handleHome = () => {
-    navigate("/home");
+    navigate("/");
     setSelected("home");
   };
 
@@ -28,7 +28,7 @@ const Header = () => {
     >
       <Container>
         <Navbar.Brand onClick={() => handleHome()} className="fw-bolder fs-4 ">
-          Travel Mania
+          AutoZone
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
@@ -45,14 +45,15 @@ const Header = () => {
             </NavLink>
             <NavLink
               as={HashLink}
-              to="/destinations"
+              to="/explore"
               onClick={() => {
-                handleSelected("destination");
+                handleSelected("cars");
               }}
-              className={selected === "destination" ? "selected" : ""}
+              className={selected === "cars" ? "selected " : ""}
             >
-              Destinations
+              Explore Cars
             </NavLink>
+
             <NavLink
               as={HashLink}
               to="/about"
@@ -67,37 +68,15 @@ const Header = () => {
           </Nav>
           <Nav className="fw-bold">
             {user && user.email && (
-              <NavDropdown title="Admin">
-                <NavDropdown.Item>
-                  <NavLink
-                    onClick={() => handleSelected("manage-orders")}
-                    as={HashLink}
-                    to="/manageorders"
-                  >
-                    Manage All Orders
-                  </NavLink>
-                </NavDropdown.Item>
-                <NavDropdown.Item>
-                  <NavLink
-                    as={HashLink}
-                    to="/addNewDestination"
-                    onClick={() => handleSelected("new-destination")}
-                  >
-                    Add New Destination
-                  </NavLink>
-                </NavDropdown.Item>
-              </NavDropdown>
-            )}
-            {user && user.email && (
               <NavLink
                 as={HashLink}
-                to="/orders"
+                to="/dashboard"
                 onClick={() => {
-                  handleSelected("my-orders");
+                  handleSelected("dashboard");
                 }}
-                className={selected === "my-orders" ? "selected" : ""}
+                // className={selected === "dashboard" ? "selected" : ""}
               >
-                My Orders
+                Dashboard
               </NavLink>
             )}
 

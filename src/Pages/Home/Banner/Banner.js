@@ -17,13 +17,13 @@ const Banner = () => {
     <div className="container mx-auto text-center mt-4">
       <Slider {...settings}>
         <div>
-          <img className="h-[80vh] w-full" src={img1} alt="" />
+          <img className="img" src={img1} alt="" />
         </div>
         <div>
-          <img className="h-[80vh] w-full" src={img2} alt="" />
+          <img className="img" src={img2} alt="" />
         </div>
         <div>
-          <img className="h-[80vh] w-full" src={img3} alt="" />
+          <img className="img" src={img3} alt="" />
         </div>
       </Slider>
     </div>

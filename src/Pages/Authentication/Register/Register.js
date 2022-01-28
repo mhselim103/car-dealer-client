@@ -1,9 +1,12 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../../../Hooks/useAuth";
 import "./Register.css";
 
 const Register = () => {
+  const navigate = useNavigate();
+  const { registerUser, authError } = useAuth();
   const {
     register,
     handleSubmit,
@@ -11,6 +14,7 @@ const Register = () => {
   } = useForm();
   const onSubmit = (data) => {
     console.log(data);
+    registerUser(data.email, data.password, data.fullName, navigate);
   };
 
   return (
@@ -31,6 +35,7 @@ const Register = () => {
         />
 
         <div style={{ color: "red" }}>
+          <p>{authError}</p>
           {Object.keys(errors).length > 0 &&
             "There are errors, check your console."}
         </div>

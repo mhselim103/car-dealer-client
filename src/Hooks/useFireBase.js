@@ -16,24 +16,64 @@ const useFirebase = () => {
   const googleProvider = new GoogleAuthProvider();
   // console.log(googleProvider);
   const [user, setUser] = useState({});
+  const [admin, setAdmin] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [authError, setAuthError] = useState("");
   const auth = getAuth();
   // console.log(signInWithPopup);
 
-  // signIn
+  // email password authentication
+  const registerUser = (email, password, name, navigate) => {
+    setIsLoading(true);
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        setAuthError("");
+        const newUser = { email, displayName: name };
+        setUser(newUser);
+        // save user to the database
+        saveUser(email, name, "POST");
+        // send name to firebase after creation
+        updateProfile(auth.currentUser, {
+          displayName: name,
+        })
+          .then(() => {})
+          .catch((error) => {});
+        navigate("/");
+      })
+      .catch((error) => {
+        setAuthError(error.message);
+        console.log(error);
+      })
+      .finally(() => setIsLoading(false));
+  };
+
+  const loginUser = (email, password, location, navigate) => {
+    setIsLoading(true);
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const destination = location?.state?.from || "/";
+        navigate(destination);
+        setAuthError("");
+      })
+      .catch((error) => {
+        setAuthError(error.message);
+      })
+      .finally(() => setIsLoading(false));
+  };
+
+  // signIn with google
   const signInUsingGoogle = (location, navigate) => {
-    const auth = getAuth();
-    // console.log("hello");
     setIsLoading(true);
     signInWithPopup(auth, googleProvider)
       .then((result) => {
-        setUser(result.user);
-        const destination = location.state?.from || "/";
-        // console.log(destination);
+        const user = result.user;
+        saveUser(user.email, user.displayName, "PUT");
+        setAuthError("");
+        const destination = location?.state?.from || "/";
         navigate(destination);
       })
       .catch((error) => {
-        console.log(error.message);
+        setAuthError(error.message);
       })
       .finally(() => setIsLoading(false));
   };
@@ -47,30 +87,26 @@ const useFirebase = () => {
     setIsLoading(false);
   };
 
-  const createAccount = (email, password) => {
-    setIsLoading(true);
-    return createUserWithEmailAndPassword(auth, email, password);
-  };
-  const signInUsingEmailPassword = (email, password) => {
-    setIsLoading(true);
-    return signInWithEmailAndPassword(auth, email, password);
+  // save user to database
+  const saveUser = (email, displayName, method) => {
+    const user = { email, displayName };
+    fetch("", {
+      method: method,
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    }).then();
   };
 
-  const updateName = (name) => {
-    console.log(name);
-    updateProfile(auth.currentUser, {
-      displayName: name,
-    })
-      .then(() => {
-        // Profile updated!
-        // ...
-      })
-      .catch((error) => {
-        // An error occurred
-        // ...
-      });
-  };
   // observe change
+
+  useEffect(() => {
+    fetch(`https://stark-caverns-04377.herokuapp.com/users/${user.email}`)
+      .then((res) => res.json())
+      .then((data) => setAdmin(data.admin));
+  }, [user.email]);
+
   useEffect(() => {
     const unsubscribed = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -81,7 +117,7 @@ const useFirebase = () => {
       setIsLoading(false);
     });
     return () => unsubscribed;
-  }, []);
+  }, [auth]);
 
   return {
     signInUsingGoogle,
@@ -90,9 +126,10 @@ const useFirebase = () => {
     logOut,
     setIsLoading,
     isLoading,
-    createAccount,
-    signInUsingEmailPassword,
-    updateName,
+    registerUser,
+    loginUser,
+    authError,
+    admin,
   };
 };
 export default useFirebase;
