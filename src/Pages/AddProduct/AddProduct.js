@@ -9,10 +9,10 @@ const AddProduct = () => {
   const onSubmit = (data) => {
     // alert(JSON.stringify(data));
     axios
-      .post("https://afternoon-gorge-65476.herokuapp.com/packages", data)
+      .post("http://localhost:5000/cars", data)
       .then(function (response) {
         if (response.data.insertedId) {
-          alert("New Destination Added");
+          alert("New Car Added");
           reset();
         }
       })
@@ -23,18 +23,17 @@ const AddProduct = () => {
 
   return (
     <div className="container">
-      <h3 className="my-3 text-center text-primary">Add a New Destination</h3>
+      <h3 className="my-3 text-center text-primary">Add New Car</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
         <input {...register("img")} placeholder="Image Url" />
-        <input {...register("title")} placeholder="Title" />
+        <input {...register("model")} placeholder="Car Model" />
         <textarea
           {...register("description")}
           placeholder="Description"
           className="form-control description"
         />
-        <input {...register("hotel")} placeholder="Hotel Name" />
-        <input {...register("bedroom")} placeholder="Bedrooms" />
-        <input {...register("price")} placeholder="Price" />
+
+        <input {...register("price")} placeholder="Car Price" />
 
         <input type="submit" className="btn btn-primary" />
       </form>

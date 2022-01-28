@@ -1,15 +1,15 @@
 import React from "react";
-import Header from "../Shared/Header/Header";
 import Banner from "./Banner/Banner";
 import Cars from "./Cars/Cars";
 import Footer from "../Shared/Footer/Footer";
-import Dashboard from "../Dashboard/Dashboard";
+import Review from "./Review/Review";
 
 const Home = () => {
   return (
     <div>
       <Banner></Banner>
       <Cars></Cars>
+      <Review></Review>
       <Footer></Footer>
     </div>
   );

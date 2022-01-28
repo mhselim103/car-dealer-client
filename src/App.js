@@ -15,6 +15,10 @@ import MyOrders from "./Pages/MyOrders/MyOrders";
 import CarDetails from "./Pages/CarDetails/CarDetails";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import Header from "./Pages/Shared/Header/Header";
+import MakeAdmin from "./Pages/MakeAdmin/MakeAdmin";
+import Payment from "./Pages/Payment/Payment";
+import Review from "./Pages/Home/Review/Review";
+import AddProduct from "./Pages/AddProduct/AddProduct";
 
 function App() {
   return (
@@ -30,37 +34,11 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/about" element={<About />} />
-            {/* <Route path="/banner" element={<Banner />} /> */}
-            <Route
-              path="/orders"
-              element={
-                <PrivateRoute>
-                  <MyOrders />
-                </PrivateRoute>
-              }
-            />
-            {/* <Route
-              path="/manageorders"
-              element={
-                <PrivateRoute>
-                  <ManageOrders />
-                </PrivateRoute>
-              }
-            /> */}
             <Route
               path=":id"
               element={
                 <PrivateRoute>
                   <CarDetails />
-                </PrivateRoute>
-              }
-            />
-
-            <Route
-              path="/dashboard"
-              element={
-                <PrivateRoute>
-                  <Dashboard />
                 </PrivateRoute>
               }
             />
@@ -73,6 +51,11 @@ function App() {
               }
             >
               <Route path="myorders" element={<MyOrders />} />
+              <Route path="pay" element={<Payment />} />
+              <Route path="orders" element={<ManageOrders />} />
+              <Route path="admin" element={<MakeAdmin />} />
+              <Route path="newcar" element={<AddProduct />} />
+              <Route path="review" element={<Review />} />
             </Route>
           </Routes>
           {/* <Footer></Footer> */}

@@ -90,7 +90,7 @@ const useFirebase = () => {
   // save user to database
   const saveUser = (email, displayName, method) => {
     const user = { email, displayName };
-    fetch("", {
+    fetch("http://localhost:5000/users", {
       method: method,
       headers: {
         "content-type": "application/json",
@@ -102,7 +102,7 @@ const useFirebase = () => {
   // observe change
 
   useEffect(() => {
-    fetch(`https://stark-caverns-04377.herokuapp.com/users/${user.email}`)
+    fetch(`http://localhost:5000/users/${user?.email}`)
       .then((res) => res.json())
       .then((data) => setAdmin(data.admin));
   }, [user.email]);

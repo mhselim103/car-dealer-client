@@ -6,7 +6,7 @@ const MyOrders = () => {
   const [orders, setOrders] = useState([]);
   const { user } = useAuth();
   useEffect(() => {
-    fetch(`https://afternoon-gorge-65476.herokuapp.com/myorders/${user?.email}`)
+    fetch(`http://localhost:5000/myorders/${user?.email}`)
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);
@@ -16,7 +16,7 @@ const MyOrders = () => {
   const handleDelete = (id) => {
     const proceed = window.confirm("are you sure , you want to delete?");
     if (proceed) {
-      const url = `https://afternoon-gorge-65476.herokuapp.com/${id}`;
+      const url = `http://localhost:5000/myorders/${id}`;
       fetch(url, {
         method: "DELETE",
       })
@@ -37,8 +37,8 @@ const MyOrders = () => {
         <thead>
           <tr>
             <th>Index</th>
-            <th>Destination</th>
-            <th>Hotel</th>
+            <th>Model</th>
+            <th>Price</th>
             <th>Update</th>
           </tr>
         </thead>
@@ -46,8 +46,8 @@ const MyOrders = () => {
           {orders?.map((order, index) => (
             <tr key={index}>
               <td>{index + 1}</td>
-              <td>{order.title}</td>
-              <td>{order.hotel}</td>
+              <td>{order.model}</td>
+              <td>{order.price}</td>
               <td>
                 <button
                   onClick={() => handleDelete(order._id)}

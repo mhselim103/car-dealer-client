@@ -4,7 +4,7 @@ import "./ManageOrders.css";
 const ManageOrders = () => {
   const [orders, setOrders] = useState([]);
   useEffect(() => {
-    fetch("https://afternoon-gorge-65476.herokuapp.com/orders")
+    fetch("http://localhost:5000/orders")
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);
@@ -14,7 +14,7 @@ const ManageOrders = () => {
   const handleDelete = (id) => {
     const proceed = window.confirm("are you sure , you want to delete?");
     if (proceed) {
-      const url = `https://afternoon-gorge-65476.herokuapp.com/orders/${id}`;
+      const url = `http://localhost:5000/orders/${id}`;
       fetch(url, {
         method: "DELETE",
       })
@@ -45,7 +45,7 @@ const ManageOrders = () => {
             <tr key={index}>
               <td>{index + 1}</td>
               <td>{order.email}</td>
-              <td>{order.productid}</td>
+              <td>{order.carid}</td>
               <td>
                 <button
                   onClick={() => handleDelete(order._id)}

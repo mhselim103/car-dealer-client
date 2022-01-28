@@ -16,14 +16,14 @@ import MyOrders from "../MyOrders/MyOrders";
 import Payment from "../Payment/Payment";
 import useAuth from "../../Hooks/useAuth";
 import { Link, Outlet, useNavigate } from "react-router-dom";
+import "./Dashboard.css";
 
 const drawerWidth = 240;
 
 function Dashboard(props) {
-  const [menu, setMenu] = useState("");
-  const [admins, setAdmins] = useState([]);
+  const [menu, setMenu] = useState("home");
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, admin } = useAuth();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -31,37 +31,68 @@ function Dashboard(props) {
     setMobileOpen(!mobileOpen);
   };
   const handleMenu = (text) => {
-    text === "Home" ? navigate("/") : setMenu(text);
+    setMenu(text);
   };
-
-  useEffect(() => {
-    fetch()
-      .then((res) => res.json())
-      .then((data) => setAdmins(data));
-  }, []);
 
   const drawer = (
     <div>
       <Toolbar />
       <Divider />
+
       <List>
-        <Link to="myorders">My Orders</Link>
-        {["Home", "Pay", "My Orders", "Review"].map((text, index) => (
-          <ListItem button key={text} onClick={() => handleMenu(text)}>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        <ListItem className="d-flex flex-column ">
+          <Link className="dashboard-link" to="/">
+            Home
+          </Link>
+          <Link
+            onClick={() => handleMenu("myorders")}
+            className="dashboard-link"
+            to="myorders"
+          >
+            My Orders
+          </Link>
+          <Link
+            onClick={() => handleMenu("pay")}
+            className="dashboard-link"
+            to="pay"
+          >
+            Pay
+          </Link>
+          <Link
+            onClick={() => handleMenu("review")}
+            className="dashboard-link"
+            to="review"
+          >
+            Review
+          </Link>
+        </ListItem>
       </List>
       <Divider />
-      {user?.email === "mhselim103@gmail.com" && (
+      {admin && (
         <List>
-          {["Add New Product", "Manage All Orders", "Make Admin"].map(
-            (text, index) => (
-              <ListItem button key={text} onClick={() => setMenu(text)}>
-                <ListItemText primary={text} />
-              </ListItem>
-            )
-          )}
+          <ListItem className="d-flex flex-column  ">
+            <Link
+              onClick={() => handleMenu("myorders")}
+              className="dashboard-link"
+              to="myorders"
+            >
+              Manage All Orders
+            </Link>
+            <Link
+              onClick={() => handleMenu("newcar")}
+              className="dashboard-link"
+              to="newcar"
+            >
+              Add New Car
+            </Link>
+            <Link
+              onClick={() => handleMenu("admin")}
+              className="dashboard-link"
+              to="admin"
+            >
+              Make Admin
+            </Link>
+          </ListItem>
         </List>
       )}
     </div>
@@ -143,8 +174,7 @@ function Dashboard(props) {
       >
         <Toolbar />
         <Typography paragraph>
-          {/* {menu === "My Orders" && <MyOrders></MyOrders>} */}
-          {/* {menu === "Pay" && <Payment></Payment>} */}
+          {menu === "home" && <h1>Check Your Dashboard Here</h1>}
           <Outlet />
         </Typography>
       </Box>
