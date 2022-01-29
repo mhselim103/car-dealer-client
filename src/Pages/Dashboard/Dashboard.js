@@ -8,12 +8,9 @@ import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import MyOrders from "../MyOrders/MyOrders";
-import Payment from "../Payment/Payment";
 import useAuth from "../../Hooks/useAuth";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import "./Dashboard.css";
@@ -22,10 +19,14 @@ const drawerWidth = 240;
 
 function Dashboard(props) {
   const [menu, setMenu] = useState("home");
-  const navigate = useNavigate();
-  const { user, admin } = useAuth();
+  const { user, admin, logOut } = useAuth();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
+  const navigate = useNavigate();
+  const handleLogOut = () => {
+    logOut();
+    navigate("/");
+  };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -72,9 +73,9 @@ function Dashboard(props) {
         <List>
           <ListItem className="d-flex flex-column  ">
             <Link
-              onClick={() => handleMenu("myorders")}
+              onClick={() => handleMenu("orders")}
               className="dashboard-link"
-              to="myorders"
+              to="orders"
             >
               Manage All Orders
             </Link>
@@ -95,6 +96,14 @@ function Dashboard(props) {
           </ListItem>
         </List>
       )}
+      <Divider />
+      <List>
+        <ListItem className="d-flex  justify-content-center">
+          <button className="dashboard-link border-0" onClick={handleLogOut}>
+            Log Out
+          </button>
+        </ListItem>
+      </List>
     </div>
   );
 

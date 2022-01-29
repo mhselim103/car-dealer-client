@@ -6,7 +6,7 @@ import Footer from "../Shared/Footer/Footer";
 const Explore = () => {
   const [cars, setCars] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/cars")
+    fetch("https://sleepy-fortress-04751.herokuapp.com/explore")
       .then((res) => res.json())
       .then((data) => setCars(data));
   }, []);

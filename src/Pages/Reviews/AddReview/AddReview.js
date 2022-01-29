@@ -1,18 +1,20 @@
 import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
-import "./AddProduct.css";
+import useAuth from "../../../Hooks/useAuth";
 
-const AddProduct = () => {
+const AddReview = () => {
+  const { user } = useAuth();
+
   const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = (data) => {
     // alert(JSON.stringify(data));
     axios
-      .post("https://sleepy-fortress-04751.herokuapp.com/cars", data)
+      .post("https://sleepy-fortress-04751.herokuapp.com/reviews", data)
       .then(function (response) {
         if (response.data.insertedId) {
-          alert("New Car Added");
+          alert("Review added");
           reset();
         }
       })
@@ -20,20 +22,22 @@ const AddProduct = () => {
         console.log(error);
       });
   };
-
   return (
     <div className="container">
-      <h3 className="my-3 text-center text-primary">Add New Car</h3>
+      <h3 className="my-3 text-center text-primary">Add review</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input {...register("img")} placeholder="Image Url" />
+        <input
+          {...register("name")}
+          placeholder="Your Name"
+          value={user.displayName}
+        />
         <input {...register("model")} placeholder="Car Model" />
+        <input type="number" {...register("rating")} placeholder="Rating" />
         <textarea
-          {...register("description")}
-          placeholder="Description"
+          {...register("reviewtext")}
+          placeholder="Your Review"
           className="form-control description"
         />
-
-        <input {...register("price")} placeholder="Car Price" />
 
         <input type="submit" className="btn btn-primary" />
       </form>
@@ -41,4 +45,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default AddReview;

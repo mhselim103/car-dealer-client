@@ -5,7 +5,7 @@ import "./Login.css";
 import useAuth from "../../../Hooks/useAuth";
 
 const Login = () => {
-  const { signInUsingGoogle } = useAuth();
+  const { signInUsingGoogle, loginUser } = useAuth();
   const {
     register,
     handleSubmit,
@@ -14,7 +14,8 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
+    loginUser(data.email, data.password, location, navigate);
   };
   const googleSignIn = (e) => {
     e.preventDefault();

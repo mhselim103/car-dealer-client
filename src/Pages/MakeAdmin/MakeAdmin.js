@@ -1,4 +1,3 @@
-import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
 const MakeAdmin = () => {
@@ -8,7 +7,7 @@ const MakeAdmin = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (admin) => {
-    fetch("http://localhost:5000/users/admin", {
+    fetch("https://sleepy-fortress-04751.herokuapp.com/users/admin", {
       method: "PUT",
       headers: {
         "content-type": "application/json",

@@ -45,7 +45,7 @@ const Header = () => {
             </NavLink>
             <NavLink
               as={HashLink}
-              to="/explore"
+              to="explore"
               onClick={() => {
                 handleSelected("cars");
               }}
@@ -56,7 +56,7 @@ const Header = () => {
 
             <NavLink
               as={HashLink}
-              to="/about"
+              to="about"
               onClick={() => {
                 handleSelected("about");
               }}
@@ -70,7 +70,7 @@ const Header = () => {
             {user && user.email && (
               <NavLink
                 as={HashLink}
-                to="/dashboard"
+                to="dashboard"
                 onClick={() => {
                   handleSelected("dashboard");
                 }}
@@ -83,14 +83,14 @@ const Header = () => {
             {user?.email ? (
               <NavLink>{user.displayName}</NavLink>
             ) : (
-              <NavLink as={HashLink} to="/login">
+              <NavLink as={HashLink} to="login">
                 Log In
               </NavLink>
             )}
             {user?.email ? (
               <NavLink onClick={logOut}>Log out</NavLink>
             ) : (
-              <NavLink as={HashLink} to="/register">
+              <NavLink as={HashLink} to="register">
                 Sign Up
               </NavLink>
             )}

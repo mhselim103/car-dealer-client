@@ -90,7 +90,7 @@ const useFirebase = () => {
   // save user to database
   const saveUser = (email, displayName, method) => {
     const user = { email, displayName };
-    fetch("http://localhost:5000/users", {
+    fetch("https://sleepy-fortress-04751.herokuapp.com/users", {
       method: method,
       headers: {
         "content-type": "application/json",
@@ -102,7 +102,7 @@ const useFirebase = () => {
   // observe change
 
   useEffect(() => {
-    fetch(`http://localhost:5000/users/${user?.email}`)
+    fetch(`https://sleepy-fortress-04751.herokuapp.com/${user?.email}`)
       .then((res) => res.json())
       .then((data) => setAdmin(data.admin));
   }, [user.email]);
