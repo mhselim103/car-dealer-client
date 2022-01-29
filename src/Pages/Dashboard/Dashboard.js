@@ -27,7 +27,7 @@ function Dashboard(props) {
     logOut();
     navigate("/");
   };
-
+  // console.log(admin);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };

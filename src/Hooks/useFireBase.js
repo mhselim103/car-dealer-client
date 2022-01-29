@@ -102,12 +102,6 @@ const useFirebase = () => {
   // observe change
 
   useEffect(() => {
-    fetch(`https://sleepy-fortress-04751.herokuapp.com/${user?.email}`)
-      .then((res) => res.json())
-      .then((data) => setAdmin(data.admin));
-  }, [user.email]);
-
-  useEffect(() => {
     const unsubscribed = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
@@ -119,6 +113,14 @@ const useFirebase = () => {
     return () => unsubscribed;
   }, [auth]);
 
+  useEffect(() => {
+    fetch(`https://sleepy-fortress-04751.herokuapp.com/users/${user?.email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log(data);
+        setAdmin(data.admin);
+      });
+  }, [user?.email]);
   return {
     signInUsingGoogle,
     user,
